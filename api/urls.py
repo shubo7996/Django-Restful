@@ -20,5 +20,6 @@ from apiService import api_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('apiService.api_urls'))
+    path('api/', include('apiService.api_urls')),
+    path('apiAuth/',include('rest_framework.urls'))
 ]
