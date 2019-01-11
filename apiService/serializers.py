@@ -14,6 +14,47 @@ class UserSerializer(serializers.ModelSerializer):
             'password',
             'email'
             )
+        kargs = {"password":
+            {"write_only" : True
+            }}
+
+        def create(self,validated_data):
+            username = validated_data['username']
+            password = validated_data['password']
+            email = validated_data['email']
+            user_obj = User(
+                username = username,
+                email = email
+            )
+            user_obj.set_password(password)
+            user_obj.save()
+            return validated_data
+
+class UserLoginSerializer(serializers.ModelSerializer):
+    token = serializers.CharField(allow_blank=True,read_only=True)
+    username = serializers.CharField()
+    class Meta:
+        model = User
+        fields = ( 
+            'username', 
+            'password',
+            'token'
+            )
+        kargs = {"password":
+            {"write_only" : True
+            }}
+
+        def create(self,validated_data):
+            username = validated_data['username']
+            password = validated_data['password']
+            email = validated_data['email']
+            user_obj = User(
+                username = username,
+                email = email
+            )
+            user_obj.set_password(password)
+            user_obj.save()
+            return validated_data
 
 class SongSerializer(serializers.ModelSerializer):
 
