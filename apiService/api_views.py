@@ -7,11 +7,6 @@ from rest_framework import status
 from django.contrib.auth.models import User
 
 class SongsList(APIView):
-
-    #permission_class=(permissions.IsAuthenticatedOrReadOnly,)
-
-    #def perform_create(self, serializer):
-    #    serializer.save(owner=self.request.user)
  
     def get(self,request,format=None):
         queryset = Songs.objects.all()
@@ -54,11 +49,3 @@ class SongsDetail(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-#class UserList(generics.ListAPIView):
-#    queryset = User.objects.all()
-#    serializer_class = UserSerializer
-
-
-#class UserDetail(generics.RetrieveAPIView):
-#    queryset = User.objects.all()
-#    serializer_class = UserSerializer
