@@ -11,7 +11,7 @@ urlpatterns = [
     #redirects to api/songs/(1..n)
     path('songs/<int:pk>/', SongsDetail.as_view()),
     #redirects to api/user/register
-    path('users/register/', UserCreateApiView.as_view()) ,
+    path('users/register/', UserCreateApiView.as_view()),
     #redirects to api/users/login
     path('users/login',UserCreateLoginView.as_view())
 ]
