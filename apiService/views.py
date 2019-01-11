@@ -23,6 +23,7 @@ from rest_framework import status
 User = get_user_model()
 
 class UserCreateApiView(CreateAPIView):
+    permission_classes = [IsAdminUser,IsAuthenticated,]
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
