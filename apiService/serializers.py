@@ -14,9 +14,6 @@ class UserSerializer(serializers.ModelSerializer):
             'password',
             'email'
             )
-        kargs = {"password":
-            {"write_only" : True
-            }}
 
         def create(self,validated_data):
             username = validated_data['username']
@@ -40,27 +37,24 @@ class UserLoginSerializer(serializers.ModelSerializer):
             'password',
             'token'
             )
-        kargs = {"password":
-            {"write_only" : True
-            }}
 
         def validate(self,data):
-            username = data.get("username",None)
-            
+            username = data.get("username")
+            password = data.get("password")
             if not username:
                 raise serializers.ValidationError("Username is required!")
             
-            user_obj = User.objects.filter(
-                Q[username = username]
+            user = User.objects.filter(
+                Q(username = username)
             ).distinct()
             
-            if user_obj.exists() and user_obj.count() == 1:
-                user = user.first()
+            if user.exists() and user.count() == 1:
+                user_obj = user.first()
             else:
                 raise serializers.ValidationError("This username is not valid!")
             
             if user_obj:
-                if not user.check_password(password):
+                if not user_obj.check_password(password):
                     raise serializers.ValidationError("Incorrect Password")
             
             data['token'] = "random"
