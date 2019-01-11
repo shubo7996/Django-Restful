@@ -3,4 +3,4 @@ from apiService.models import Songs
 
 # Register your models here.
 admin.site.register(Songs)
-#admin.site.register(User)
+admin.site.unregister(Groups)

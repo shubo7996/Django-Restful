@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'apiService'
    
-    
 ]
 
 MIDDLEWARE = [
@@ -73,11 +72,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'api.wsgi.application'
 
-REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-    )
-}
+#REST_FRAMEWORK = {
+#    'DEFAULT_PERMISSION_CLASSES': (
+#        'rest_framework.permissions.IsAuthenticated',
+#    )
+#}
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases

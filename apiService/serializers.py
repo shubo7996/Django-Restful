@@ -1,18 +1,19 @@
 from rest_framework import serializers
 from . import models
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 
-#class UserSerializer(serializers.ModelSerializer):
-#    
-#    snippets = serializers.PrimaryKeyRelatedField(many=True, queryset=models.Songs.objects.all())
 
-#    class Meta:
- #       model = User
- #       fields = (
- #           'id', 
- #           'username', 
- #           'snippets'
- #           )
+User = get_user_model()
+
+class UserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ( 
+            'username', 
+            'password',
+            'email'
+            )
 
 class SongSerializer(serializers.ModelSerializer):
 
