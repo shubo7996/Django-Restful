@@ -4,9 +4,15 @@ from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from django.contrib.auth.models import User
 
 class SongsList(APIView):
-    
+
+    #permission_class=(permissions.IsAuthenticatedOrReadOnly,)
+
+    #def perform_create(self, serializer):
+    #    serializer.save(owner=self.request.user)
+ 
     def get(self,request,format=None):
         queryset = Songs.objects.all()
         serializer_class = SongSerializer(queryset,many=True)
@@ -47,3 +53,12 @@ class SongsDetail(APIView):
         song.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+
+#class UserList(generics.ListAPIView):
+#    queryset = User.objects.all()
+#    serializer_class = UserSerializer
+
+
+#class UserDetail(generics.RetrieveAPIView):
+#    queryset = User.objects.all()
+#    serializer_class = UserSerializer

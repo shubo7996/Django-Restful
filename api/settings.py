@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'apiService'
+   
+    
 ]
 
 MIDDLEWARE = [
@@ -72,7 +74,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'api.wsgi.application'
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES':(
+    'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
     )
 }
@@ -108,7 +110,11 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
+
+
+
 ]
+
 
 
 # Internationalization
