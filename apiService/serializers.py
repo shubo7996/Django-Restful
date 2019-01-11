@@ -3,8 +3,10 @@ from . import models
 from django.contrib.auth import get_user_model
 from django.db.models import Q
 
+# Current Active User
 User = get_user_model()
 
+#Serializer Class for the current active user 
 class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -14,6 +16,11 @@ class UserSerializer(serializers.ModelSerializer):
             'password',
             'email'
             )
+"""
+
+This Method contains Validation of User Input Data
+
+"""
 
     def create(self,validated_data):
         username = validated_data['username']
@@ -27,6 +34,7 @@ class UserSerializer(serializers.ModelSerializer):
         user_obj.save()
         return validated_data
 
+#Serializer for the User' Login model
 class UserLoginSerializer(serializers.ModelSerializer):
     token = serializers.CharField(allow_blank=True,read_only=True)
     username = serializers.CharField()
@@ -37,6 +45,10 @@ class UserLoginSerializer(serializers.ModelSerializer):
             'password',
             'token'
             )
+"""
+Method for the Validation of input data for Login
+
+"""
 
     def validate(self,data):
         username = data.get("username")
@@ -45,7 +57,8 @@ class UserLoginSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Username is required!")
             
         user = User.objects.filter(
-            Q(username = username)
+            Q(username = username)|
+            Q(password = password)
             ).distinct()
             
         if user.exists() and user.count() == 1:
@@ -62,7 +75,7 @@ class UserLoginSerializer(serializers.ModelSerializer):
         return data
 
 
-
+#Serializer Class for Song model
 class SongSerializer(serializers.ModelSerializer):
     
     class Meta:
