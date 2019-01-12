@@ -4,7 +4,7 @@ from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .permissions import IsAuthenticatedOrReadOnly
+from .permissions import IsAuthenticatedAndOwner
 from rest_framework.permissions import (
     AllowAny,
     IsAuthenticated,
@@ -14,17 +14,17 @@ from rest_framework.permissions import (
 
 
 class SongsList(APIView):
+    
+    #pemission class object inherited from the rest framework's permission class
+    permission_classes=[IsAuthenticatedAndOwner,IsAdminUser,]
 
-#pemission class object inherited from the rest framework's permission class
-    permission_class=[IsAuthenticatedOrReadOnly,]
-
-#just in ordr to make the inputs in HTML format
+    #just in ordr to make the inputs in HTML format
     serializer_class = SongSerializer
 
-"""
-This Contains The GET and POST method for making the api
+    """
+        This Contains The GET and POST method for making the api
 
-"""
+    """
 
     def get(self,request,format=None):
         queryset = Songs.objects.all()
@@ -40,18 +40,21 @@ This Contains The GET and POST method for making the api
 
            
 class SongsDetail(APIView):
+
     
     #we have met before
     serializer_class = SongSerializer
+
+
     #you know what i am talking about
-    permission_class = [IsAuthenticatedOrReadOnly,]
+    permission_classes = [IsAuthenticatedAndOwner,]
 
 
-"""
+    """
 
-This contains the READ,UPDATE,DESTROY method for the api
+    This contains the READ,UPDATE,DESTROY method for the api
 
-"""
+    """
 
     def get_object(self,pk):
 
