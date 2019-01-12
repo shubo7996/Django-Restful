@@ -16,13 +16,17 @@ class UserSerializer(serializers.ModelSerializer):
             'password',
             'email'
             )
-"""
 
-This Method contains Validation of User Input Data
 
-"""
+    """
+
+    This Method contains Validation of User Input Data
+
+    """
+
 
     def create(self,validated_data):
+        
         username = validated_data['username']
         password = validated_data['password']
         email = validated_data['email']
@@ -45,10 +49,11 @@ class UserLoginSerializer(serializers.ModelSerializer):
             'password',
             'token'
             )
-"""
-Method for the Validation of input data for Login
 
-"""
+    """
+    Method for the Validation of input data for Login
+
+    """
 
     def validate(self,data):
         username = data.get("username")

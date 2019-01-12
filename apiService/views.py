@@ -3,10 +3,6 @@ from .serializers import UserSerializer,UserLoginSerializer
 from django.contrib.auth import get_user_model
 from rest_framework.generics import (
     CreateAPIView,
-    ListAPIView,
-    UpdateAPIView,
-    RetrieveAPIView,
-    RetrieveUpdateAPIView
 )
 from rest_framework.permissions import (
     AllowAny,
@@ -31,21 +27,25 @@ User = get_user_model()
 
 
 class UserCreateApiView(CreateAPIView):
-#permission class set to Admin Users only
+
+    #permission class set to Admin Users only
     permission_classes = [IsAdminUser,]
     
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
 class UserCreateLoginView(APIView):
-#permission class set to Authenticated User or read Only
+
+    #permission class set to Authenticated User or read Only
     permission_classes = [AllowAny,]
     serializer_class = UserLoginSerializer
 
-"""
-This Method contains the user to log in
 
-"""
+    """
+    This Method contains the user to logged in
+
+    """
+    
     def post(self,request,format=None):
         serializer = UserLoginSerializer(data=request.data)
         if serializer.is_valid():
